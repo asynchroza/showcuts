@@ -32,6 +32,10 @@ def cat_shortcuts(filename): # colors the whole output in the same color
 
 def cat_shortcuts_liner(filename): # color only `` strings
 
+    if not filename[len(filename)-3:] == '.md':
+        return cat_shortcuts(filename)
+
+
     import subprocess
     path = subprocess.check_output(['echo $SHORTCUTS_DIR_PATH'], shell=True).decode('utf-8')
     
@@ -72,28 +76,6 @@ def cat_shortcuts_liner(filename): # color only `` strings
             output_string = line
 
         print(output_string)
-        
-
-        # for word in line.split():
-            # if word[0] == '`':
-                # word = '{} {}'.format(bcolors.YELLOW_IN, word)
-                # is_format_correct = False
-            # if word[-1] == '`':
-                # word = '{} {} '.format(word, bcolors.CEND)
-                # is_format_correct = True if is_format_correct == False else False
-            # word += " "
-
-            # output_string += word
-
-        # final_output_string += output_string + "\n"
-            
-        # if not is_format_correct:
-            # print("Markdown file with incorrect formatting!")
-            # sys.exit(1)
-
-    # print(final_output_string)
-
-    # invoke shell script
 
 
 # set path to shortcuts
@@ -142,11 +124,9 @@ if args.path:
         sys.exit()
 
 if args.terminal:
-    # cat_shortcuts(TERMINAL)
     cat_shortcuts_liner(TERMINAL)
 
 if args.pycharm:
-    # cat_shortcuts(PYCHARM)
     cat_shortcuts_liner(PYCHARM)
 
 
