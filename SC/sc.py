@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # cli tool for displaying shortcuts
 
 import argparse
