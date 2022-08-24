@@ -49,9 +49,10 @@ def cat_shortcuts_liner(filename): # color only `` strings
         lines = file.readlines()
 
     MAX_CAPACITY_STRING = 25
-    
-    print('\n') # newline
+    SPACE_BEFORE_HEADER = 18
 
+    print() # newline
+    
     
     for line in lines:
         is_format_correct = True
@@ -61,8 +62,8 @@ def cat_shortcuts_liner(filename): # color only `` strings
         index_of_second_md_char = line.rfind('`')
 
         if line[0] == '#':
-            line = bcolors.CYAN_IN + line + bcolors.CEND
-            output = line
+            line = bcolors.CYAN_IN + SPACE_BEFORE_HEADER * ' ' + line + bcolors.CEND
+            output = line.replace('#', '')
             print(output)
             continue
 
