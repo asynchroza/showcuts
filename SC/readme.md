@@ -5,15 +5,20 @@
 
 ---
 ## How to work with it
-Run one of the installation scripts which specific for your shell (`zsh/bash`)  
+Run one of the installation scripts (`zsh/bash`)
 
 Set `SHELL_PROFILE` in `sc.py` to be the same as your shell's rc file  
 
-Set the path to the directory where you store your shortcut notes by typing `sc -p <YOUR_PATH_TO_DIR>` - e.g. `sc --path /Users/misho/Documents/Obsidian/Shortcuts`  
+Set the path to the directory where you store your shortcut notes by typing `sc -p <YOUR_PATH_TO_DIR>` - e.g. `sc --path /Users/misho/Documents/Obsidian/Shortcuts`
 
 Set `TERMINAL`, `PYCHARM` to the full filenames of the notes in which you store your shortcuts - e.g. `TERMINAL='terminal.md'`  
 
 To display terminal shortcuts, run `sc -t` or `sc --terminal`
+To display pycharm shortcuts, run `sc -c` or `sc --pycharm`
+
+To display undeclared shortcuts which could be found in the default path, run `sc -r <filename.extension>` or `sc --read <filename.extension> (e.g. `sc -r `readme.md`) **** RECURSSIVE SEARCH TBA ****
+
+To display undeclared shortcuts which are out of the scope of the default path: `TBA`
 
 To see all possible arguments - `sc -h` or `sc --help`
 
