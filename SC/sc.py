@@ -23,20 +23,19 @@ class bcolors:
     CEND = '\033[0m'
 
 
-def cat_shortcuts(filename): # colors the whole output in the same color
-    file_dir = '$SHORTCUTS_DIR_PATH/{}'.format(filename)
+# def cat_shortcuts(filename): # colors the whole output in the same color
+    # file_dir = '$SHORTCUTS_DIR_PATH/{}'.format(filename)
 
-    color_filter = 'tput setaf {}; cat; tput sgr0;'.format(COLOR)
-    pipe = "clrfilter() { " + color_filter + " }"
+    # color_filter = 'tput setaf {}; cat; tput sgr0;'.format(COLOR)
+    # pipe = "clrfilter() { " + color_filter + " }"
 
-    os.system('{} && cat {} | clrfilter && echo \"\\n\"'.format(pipe, file_dir))
-    sys.exit()
+    # os.system('{} && cat {} | clrfilter && echo \"\\n\"'.format(pipe, file_dir))
+    # sys.exit()
 
 def cat_shortcuts_liner(filename): # color only `` strings
 
-    if not filename[len(filename)-3:] == '.md':
-        return cat_shortcuts(filename)
-
+    # if not filename[len(filename)-3:] == '.md':
+        # return cat_shortcuts(filename)
 
     import subprocess
     path = subprocess.check_output(['echo $SHORTCUTS_DIR_PATH'], shell=True).decode('utf-8')
@@ -57,6 +56,10 @@ def cat_shortcuts_liner(filename): # color only `` strings
     for line in lines:
         is_format_correct = True
         output_string = ""
+        
+        count_backticks = line.count('`')
+        if count_backticks == 1 or count_backticks > 2:
+            raise Exception("Error parsing backticks")
 
         index_of_first_md_char = line.find('`')
         index_of_second_md_char = line.rfind('`')
@@ -67,9 +70,8 @@ def cat_shortcuts_liner(filename): # color only `` strings
             print(output)
             continue
 
-        if not index_of_first_md_char == -1 and (index_of_first_md_char == index_of_second_md_char or index_of_first_md_char > index_of_second_md_char):
-            print("Markdown document is formatted incorrectly")
-            sys.exit()
+        # if not index_of_first_md_char == -1 and (index_of_first_md_char == index_of_second_md_char or index_of_first_md_char > index_of_second_md_char):
+            # raise Exception("Document is formated incorrectly")
         
         if index_of_first_md_char != -1:
             
@@ -84,7 +86,7 @@ def cat_shortcuts_liner(filename): # color only `` strings
         else:
             output_string = line
 
-        print(output_string)
+        print(output_string) # print each line
 
 
 # set path to shortcuts
@@ -106,7 +108,15 @@ parser.add_argument(
         help='Display pycharm shortcuts'
         )
 
-# pycharm shortcuts
+parser.add_argument(
+        '-r', '--read',
+        help='Read shortcut file from default directory'
+        )
+
+parser.add_argument(
+        '-ro', '--read_not_default', 
+        help='Pass full path to shortcut file'
+        )
 
 args = parser.parse_args()
 
@@ -132,10 +142,37 @@ if args.path:
 
         sys.exit()
 
-if args.terminal:
-    cat_shortcuts_liner(TERMINAL)
+def sandboxed_liner_call(args):
+    try:
+        cat_shortcuts_liner(args)
+    except Exception as e:
+        print(e)
+        sys.exit(1)
+        
 
+# TERMINAL SHORTCUTS
+if args.terminal:
+    sandboxed_liner_call(TERMINAL)
+
+
+# PYCHARM SHORTCUTS
 if args.pycharm:
-    cat_shortcuts_liner(PYCHARM)
+    sandboxed_liner_call(PYCHARM)
+
+if args.read:
+    if not '/' in args.read: # we may read files without extensions
+        sandboxed_liner_call(args.read)
+    else:
+        print('Argument should like: readme.txt')
+        sys.exit()
+
+
+if args.read_not_default:
+    print(os.path.abspath(args.read_not_default))
+
+
+# TBA:
+# Remove start at the beginning of the lines
+# Pass full path to a file outside of default dir (-ro)
 
 
