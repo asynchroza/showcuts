@@ -1,8 +1,7 @@
 ## Tool for displaying shortcut notes
 
-
-> When used with MARKDOWN files, it colors only the commands put between backticks  
-> When used with other filetypes, it colors the whole output
+> If you want to achieve coloring such as the one on the picture beneath, use `markdown` files and put the shortcuts between backticks
+> Other filetypes parse the whole output to the set color (`COLOR`)
 
 ---
 ## How to work with it
@@ -19,4 +18,4 @@ To display terminal shortcuts, run `sc -t` or `sc --terminal`
 To see all possible arguments - `sc -h` or `sc --help`
 
 
-<img src="https://i.ibb.co/yQw36QK/Screenshot-2022-08-24-at-10-26-18.png"/>
+<img src="https://i.ibb.co/zGsrqJh/Screenshot-2022-08-24-at-10-49-32.png"/>

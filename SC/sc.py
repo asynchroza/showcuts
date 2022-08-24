@@ -79,7 +79,7 @@ def cat_shortcuts_liner(filename): # color only `` strings
             
             edited_shortcut = edited_shortcut + " " * (MAX_CAPACITY_STRING - len(shortcut))
 
-            output_string = line.replace(shortcut, edited_shortcut)
+            output_string = line.replace(shortcut, edited_shortcut).replace('`', '')
 
         else:
             output_string = line
