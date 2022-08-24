@@ -19,6 +19,7 @@ class bcolors:
     YELLOW_OUT = '\033[43m' 
     RED_IN = '\033[31m'
     RED_OUT = '\033[41m'
+    CYAN_IN = '\033[96m'
     CEND = '\033[0m'
 
 
@@ -58,6 +59,12 @@ def cat_shortcuts_liner(filename): # color only `` strings
 
         index_of_first_md_char = line.find('`')
         index_of_second_md_char = line.rfind('`')
+
+        if line[0] == '#':
+            line = bcolors.CYAN_IN + line + bcolors.CEND
+            output = line
+            print(output)
+            continue
 
         if not index_of_first_md_char == -1 and (index_of_first_md_char == index_of_second_md_char or index_of_first_md_char > index_of_second_md_char):
             print("Markdown document is formatted incorrectly")
