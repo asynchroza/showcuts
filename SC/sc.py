@@ -8,12 +8,6 @@ import textwrap
 
 parser = argparse.ArgumentParser()
 
-SHELL_PROFILE='zshrc' # or bashrc, etc ($HOME parent directory is assumed)
-TERMINAL='terminal.md' 
-PYCHARM='pycharm.md'
-COLOR=3 # currently yellow
-# 1 = red, 2 = green, 3 = yellow, 4 = blue, 5 = pink, ...
-
 class bcolors:
     YELLOW_IN = '\033[33m'
     YELLOW_OUT = '\033[43m' 
@@ -22,20 +16,15 @@ class bcolors:
     CYAN_IN = '\033[96m'
     CEND = '\033[0m'
 
+SHELL_PROFILE='zshrc' # or bashrc, etc ($HOME parent directory is assumed)
+TERMINAL='terminal.md' 
+PYCHARM='pycharm.md'
+COLOR=bcolors.YELLOW_IN
 
-# def cat_shortcuts(filename): # colors the whole output in the same color
-    # file_dir = '$SHORTCUTS_DIR_PATH/{}'.format(filename)
 
-    # color_filter = 'tput setaf {}; cat; tput sgr0;'.format(COLOR)
-    # pipe = "clrfilter() { " + color_filter + " }"
 
-    # os.system('{} && cat {} | clrfilter && echo \"\\n\"'.format(pipe, file_dir))
-    # sys.exit()
 
 def cat_shortcuts_liner(filename): # color only `` strings
-
-    # if not filename[len(filename)-3:] == '.md':
-        # return cat_shortcuts(filename)
 
     import subprocess
     path = subprocess.check_output(['echo $SHORTCUTS_DIR_PATH'], shell=True).decode('utf-8')
@@ -49,8 +38,6 @@ def cat_shortcuts_liner(filename): # color only `` strings
 
     MAX_CAPACITY_STRING = 25
     SPACE_BEFORE_HEADER = 18
-
-    print() # newline
     
     
     for line in lines:
@@ -69,9 +56,6 @@ def cat_shortcuts_liner(filename): # color only `` strings
             output = line.replace('#', '')
             print(output)
             continue
-
-        # if not index_of_first_md_char == -1 and (index_of_first_md_char == index_of_second_md_char or index_of_first_md_char > index_of_second_md_char):
-            # raise Exception("Document is formated incorrectly")
         
         if index_of_first_md_char != -1:
             
@@ -129,18 +113,13 @@ if args.path:
         sys.exit()
     else:
         command = 'echo \"export SHORTCUTS_DIR_PATH=\'{}\'\n$(cat $HOME/.{})\" > $HOME/.{}'.format(args.path, SHELL_PROFILE, SHELL_PROFILE) # :))))))
-        # command = 'echo \"export SHORCUTS_DIR_PATH=\'{}\'\" >> $HOME/.{}'.format(args.path, SHELL_PROFILE)
         if os.system(command) != 0:
             sys.exit()
 
         print(" ... ")
+        print("Executing shell in order to reload PATH as environment variable")
 
-        if os.system("source $HOME/.{} > /dev/null 2>&1".format(SHELL_PROFILE)) == 0:
-            print("Path set successfully")
-        else: 
-            print("Something went wrong executing the shell")
-
-        sys.exit()
+        os.system('exec $SHELL')
 
 def sandboxed_liner_call(args):
     try:
