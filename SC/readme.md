@@ -29,12 +29,14 @@ If there are files with the same name, you may run the same command but this tim
 <img src="https://i.ibb.co/LQSBXKS/image.png"/>
 ---
 
-(Example formatting)[https://github.com/mbozhilov-qb/utils/blob/main/SC/example_shortcut_file.md] :
+Example formatting:
 
 ```
 # KEYBOARD SHORTCUTS
 * `ctrl + c`  copy
 ```
 The space between the shortcut and the command does not matter. The tool takes care of the formatting. You are able to experiment and make the notes look good both in your text editor and your terminal.
+
+(A more detailed example)[https://github.com/mbozhilov-qb/utils/blob/main/SC/example_shortcut_file.md]
 
 <img src="https://i.ibb.co/RzXP4kD/image.png"/>
