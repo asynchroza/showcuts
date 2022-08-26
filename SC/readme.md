@@ -12,6 +12,8 @@ Setup in `sc.py`:
 ```
 SHELL_PROFILE=`zshrc` # or `bashrc` if you are using bash
 COLOR=bcolors.YELLOW_IN  # choose a color from the bcolors class or set a custom one
+MAX_CAPACITY_STRING = 40  # space between shortcut and command
+SPACE_BEFORE_HEADER = 18  # space before # tags
 ```
 ---
 ```
@@ -27,7 +29,7 @@ sc -r filename # search shortcuts in --path directory
 ```
 If there are files with the same name, you may run the same command but this time passing the extension of the file
 
-<img src="https://i.ibb.co/LQSBXKS/image.png"/>
+<img src="https://i.ibb.co/8mD0ygY/Screenshot-2022-08-26-at-14-17-58.png"/>
 
 ---
 
@@ -41,4 +43,14 @@ The space between the shortcut and the command does not matter. The tool takes c
 
 [A more detailed example](https://github.com/mbozhilov-qb/utils/blob/main/SC/example_shortcut_file.md)
 
-<img src="https://i.ibb.co/RzXP4kD/image.png"/>
+```
+* `0`  go to start of line
+*   `q + letter` start recording macro
+*       `@ + letter`    play recorded macro
+
+Parsed as: 
+```
+<img src="https://i.ibb.co/56ZqwWT/Screenshot-2022-08-26-at-14-09-32.png"/>
+
+
+
