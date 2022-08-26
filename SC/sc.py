@@ -8,7 +8,8 @@ import textwrap
 
 parser = argparse.ArgumentParser()
 
-class bcolors:
+                        
+class bcolors:          # example color gamma 
     YELLOW_IN = '\033[33m'
     YELLOW_OUT = '\033[43m' 
     RED_IN = '\033[31m'
@@ -16,10 +17,12 @@ class bcolors:
     CYAN_IN = '\033[96m'
     CEND = '\033[0m'
 
-SHELL_PROFILE='zshrc' # or bashrc, etc ($HOME parent directory is assumed)
-TERMINAL='terminal.md' 
-PYCHARM='pycharm.md'
-COLOR=bcolors.YELLOW_IN
+SHELL_PROFILE='zshrc'   # set default shell rc file
+
+TERMINAL='terminal.md'  # shortcut 
+PYCHARM='pycharm.md'    # shortcut 
+
+COLOR=bcolors.YELLOW_IN # change color of backticks output
 
 
 
@@ -178,11 +181,12 @@ if args.read:
 
 
 if args.read_not_default:
+    #TODO implement -ro
     print(os.path.abspath(args.read_not_default))
 
 
 # TBA:
-# Remove start at the beginning of the lines
+# Remove stars from displayed lines
 # Pass full path to a file outside of default dir (-ro)
 
 
