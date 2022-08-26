@@ -1,4 +1,16 @@
 ## Shortcuts or ShowCuts 😁: CLI tool for displaying shortcuts
+---
+Installation:
+```
+./install.sh  # --zsh if you are running zsh and not bash
+```
+Installs the tool globally but you won't be able to run it with sudo (and you don't need to 🏥)
+
+
+Setup in `sc.py`:
+```
+SHELL_PROFILE=`zshrc` # or `bashrc` if you are using bash
+```
 
 ```
 sc -t && sc -c # terminal and pycharm shortcuts
@@ -12,7 +24,7 @@ If there are files with the same name, you may run the same command but this tim
 
 <img src="https://i.ibb.co/LQSBXKS/image.png"/>
 
-Example formatting:
+(Example formatting)[https://github.com/mbozhilov-qb/utils/blob/main/SC/example_shortcut_file.md]:
 
 ```
 # KEYBOARD SHORTCUTS
