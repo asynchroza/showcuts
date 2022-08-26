@@ -24,27 +24,67 @@ PYCHARM='pycharm.md'    # shortcut
 
 COLOR=bcolors.YELLOW_IN # change color of backticks output
 
+MAX_CAPACITY_STRING = 40 # space between shortcut and command
+SPACE_BEFORE_HEADER = 18 # space before ## header
 
+def check_correct_file(filename):
+    if '.' in filename:
+        return filename
+    else:
+        command = 'cd $SHORTCUTS_DIR_PATH && ls'
+
+        # BREAKS SECURITY POLICIES
+        # command = 'find $SHORTCUTS_DIR_PATH -name \"{}\" | cat'.format(filename)
+
+        result = subprocess.check_output([command], shell=True).decode('utf-8')
+
+        lines = result.splitlines()
+        
+        file = None
+
+        if not lines:
+            raise Exception('Directory is empty')
+
+        for line in lines:
+            if filename == line.split('.')[0]:
+                if file is not None:
+                    raise Exception('Files with duplicated names. A file extension will be needed')
+                file = line
+
+        if file is None:
+            raise Exception('No file has been found')
+        
+        return(file)
+
+
+def build_colored_output(start, middle, end):
+    calc_mid_section = MAX_CAPACITY_STRING - len(middle)
+    return(start + " " + COLOR + middle.replace('`', '') + bcolors.CEND + ' ' * calc_mid_section + end)
 
 
 def cat_shortcuts_liner(filename): # color only `` strings
 
     path = subprocess.check_output(['echo $SHORTCUTS_DIR_PATH'], shell=True).decode('utf-8')
     
+    # check if file is full path or just a filename
+    if '/' in filename:
+        if not os.path.isfile(args.read):
+            raise Exception('Incorrect path to shorcuts note')
 
-    file_dir = '{}/{}'.format(path[0: -1], filename) # .replace("\\n", '')
+        file_dir = filename
+    else: 
+        file_dir = '{}/{}'.format(path[0: -1], check_correct_file(filename)) # .replace("\\n", '')
+    
 
     lines = None
     with open(file_dir, 'r') as file:
         lines = file.readlines()
 
-    MAX_CAPACITY_STRING = 25
-    SPACE_BEFORE_HEADER = 18
-    
-    
+    print() # newline
+
+    final_output = str()
+
     for line in lines:
-        is_format_correct = True
-        output_string = ""
         
         count_backticks = line.count('`')
         if count_backticks == 1 or count_backticks > 2:
@@ -56,23 +96,21 @@ def cat_shortcuts_liner(filename): # color only `` strings
         if line[0] == '#':
             line = bcolors.CYAN_IN + SPACE_BEFORE_HEADER * ' ' + line + bcolors.CEND
             output = line.replace('#', '')
-            print(output)
+            final_output += output + '\n'
             continue
         
         if index_of_first_md_char != -1:
             
-            shortcut = line[index_of_first_md_char:index_of_second_md_char+1]
-            
-            edited_shortcut = bcolors.YELLOW_IN + shortcut + bcolors.CEND
-            
-            edited_shortcut = edited_shortcut + " " * (MAX_CAPACITY_STRING - len(shortcut))
+            shortcut = line[index_of_first_md_char:index_of_second_md_char+1].strip()
+            beginning_of_line = line[0:index_of_first_md_char].strip()
+            ending_of_line = line[index_of_second_md_char+1:-1].strip()
 
-            output_string = line.replace(shortcut, edited_shortcut).replace('`', '')
-
+            final_output += build_colored_output(beginning_of_line, shortcut, ending_of_line) + '\n'
+            
         else:
-            output_string = line
+            final_output += line
 
-        print(output_string) # print each line
+    print(final_output) # print each line
 
 
 # set path to shortcuts
@@ -97,11 +135,6 @@ parser.add_argument(
 parser.add_argument(
         '-r', '--read',
         help='Read shortcut file from default directory'
-        )
-
-parser.add_argument(
-        '-ro', '--read_not_default', 
-        help='Pass full path to shortcut file'
         )
 
 args = parser.parse_args()
@@ -140,53 +173,16 @@ if args.terminal:
 if args.pycharm:
     sandboxed_liner_call(PYCHARM)
 
-def check_correct_file(filename):
-    if '.' in filename:
-        return filename
-    else:
-        command = 'cd $SHORTCUTS_DIR_PATH && ls'
 
-        # BREAKS SECURITY POLICIES
-        # command = 'find $SHORTCUTS_DIR_PATH -name \"{}\" | cat'.format(filename)
-
-        result = subprocess.check_output([command], shell=True).decode('utf-8')
-
-        lines = result.splitlines()
-        
-        file = None
-
-        if not lines:
-            raise Exception('Directory is empty')
-
-        for line in lines:
-            if filename == line.split('.')[0]:
-                if file is not None:
-                    raise Exception('Files with duplicated names. A file extension will be needed')
-                file = line
-
-        if file is None:
-            raise Exception('No file has been found')
-        
-        return(file)
 
 if args.read:
     try:
-        if not '/' in args.read: # we may read files without extensions
-            sandboxed_liner_call(check_correct_file(args.read))
-        else:
-            raise Exception('Argument should like like: readme.txt or readme')
+        sandboxed_liner_call(args.read)
+
     except Exception as e:
         print(e)
         sys.exit()
 
 
-if args.read_not_default:
-    #TODO implement -ro
-    print(os.path.abspath(args.read_not_default))
-
-
 # TBA:
 # Remove stars from displayed lines
-# Pass full path to a file outside of default dir (-ro)
-
-
