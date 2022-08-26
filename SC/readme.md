@@ -2,7 +2,7 @@
 ---
 Installation:
 ```
-./install.sh  # --zsh if you are running zsh and not bash
+./install.sh  # pass --zsh argument if you are running zsh and not bash
 ```
 Installs the tool globally but you won't be able to run it with sudo (and you don't need to 🏥)
 
