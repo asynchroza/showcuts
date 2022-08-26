@@ -41,7 +41,7 @@ Example formatting:
 ```
 The space between the shortcut and the command does not matter. The tool takes care of the formatting. You are able to experiment and make the notes look good both in your text editor and your terminal.
 
-[A more detailed example](https://github.com/mbozhilov-qb/utils/blob/main/SC/example_shortcut_file.md)
+[A more detailed example](https://github.com/mbozhilov-qb/showcuts/blob/main/example_shortcut_file.md)
 
 ```
 * `0`  go to start of line
