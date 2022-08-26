@@ -141,6 +141,11 @@ args = parser.parse_args()
 
 directory_path = args.path
 
+if len(sys.argv) < 2:
+    print("\nShowCuts:")
+    print("Type --help to see all the arguments\n")
+    sys.exit(0)
+
 
 if args.path:
     if not os.path.isdir(args.path):
@@ -162,7 +167,6 @@ def sandboxed_liner_call(args):
     except Exception as e:
         print(e)
         sys.exit(1)
-        
 
 # TERMINAL SHORTCUTS
 if args.terminal:
@@ -182,6 +186,9 @@ if args.read:
     except Exception as e:
         print(e)
         sys.exit()
+
+
+
 
 
 # TBA:
