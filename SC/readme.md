@@ -20,6 +20,7 @@ sc -t && sc -c # terminal and pycharm shortcuts
 `TERMINAL` and `PYCHARM` variables should be set in `sc.py`
 
 <img src="https://i.ibb.co/ZGyrKv0/image.png"/>
+
 ---
 ```
 sc -r filename # search shortcuts in --path directory
