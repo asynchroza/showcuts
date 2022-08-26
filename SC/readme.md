@@ -28,7 +28,8 @@ If there are files with the same name, you may run the same command but this tim
 
 <img src="https://i.ibb.co/LQSBXKS/image.png"/>
 ---
-(Example formatting)[https://github.com/mbozhilov-qb/utils/blob/main/SC/example_shortcut_file.md]:
+
+(Example formatting)[https://github.com/mbozhilov-qb/utils/blob/main/SC/example_shortcut_file.md] :
 
 ```
 # KEYBOARD SHORTCUTS
