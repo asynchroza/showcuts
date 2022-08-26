@@ -4,7 +4,8 @@ Installation:
 ```
 ./install.sh  # pass --zsh argument if you are running zsh and not bash
 ```
-Installs the tool globally but you won't be able to run it with sudo (and you don't need to 🏥)
+Installs the tool globally but you won't be able to run it with sudo.
+If you want to delete the directory and keep the tool, either change `PATH` to point to the location of the tool or move it to `/usr/bin`
 
 ---
 Setup in `sc.py`:
