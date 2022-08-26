@@ -3,7 +3,7 @@
 
 import argparse
 
-import os, sys
+import os, sys, subprocess
 import textwrap
 
 parser = argparse.ArgumentParser()
@@ -26,7 +26,6 @@ COLOR=bcolors.YELLOW_IN
 
 def cat_shortcuts_liner(filename): # color only `` strings
 
-    import subprocess
     path = subprocess.check_output(['echo $SHORTCUTS_DIR_PATH'], shell=True).decode('utf-8')
     
 
@@ -138,11 +137,43 @@ if args.terminal:
 if args.pycharm:
     sandboxed_liner_call(PYCHARM)
 
-if args.read:
-    if not '/' in args.read: # we may read files without extensions
-        sandboxed_liner_call(args.read)
+def check_correct_file(filename):
+    if '.' in filename:
+        return filename
     else:
-        print('Argument should like: readme.txt')
+        command = 'cd $SHORTCUTS_DIR_PATH && ls'
+
+        # BREAKS SECURITY POLICIES
+        # command = 'find $SHORTCUTS_DIR_PATH -name \"{}\" | cat'.format(filename)
+
+        result = subprocess.check_output([command], shell=True).decode('utf-8')
+
+        lines = result.splitlines()
+        
+        file = None
+
+        if not lines:
+            raise Exception('Directory is empty')
+
+        for line in lines:
+            if filename in line:
+                if file is not None:
+                    raise Exception('Files with duplicated names. A file extension will be needed')
+                file = line
+
+        if file is None:
+            raise Exception('No file has been found')
+        
+        return(file)
+
+if args.read:
+    try:
+        if not '/' in args.read: # we may read files without extensions
+            sandboxed_liner_call(check_correct_file(args.read))
+        else:
+            raise Exception('Argument should like like: readme.txt or readme')
+    except Exception as e:
+        print(e)
         sys.exit()
 
 
