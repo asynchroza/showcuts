@@ -159,7 +159,7 @@ def check_correct_file(filename):
             raise Exception('Directory is empty')
 
         for line in lines:
-            if filename in line:
+            if filename == line.split('.')[0]:
                 if file is not None:
                     raise Exception('Files with duplicated names. A file extension will be needed')
                 file = line
