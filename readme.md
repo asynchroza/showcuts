@@ -1,5 +1,9 @@
 ## Shortcuts or ShowCuts 😁: CLI tool for displaying shortcuts
+
+<img src="https://i.ibb.co/S6XVWXh/Screenshot-2022-09-02-at-1-19-12.png"/>
+
 ---
+
 Installation:
 ```
 ./install.sh  # pass --zsh argument if you are running zsh and not bash
