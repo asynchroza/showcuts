@@ -103,7 +103,7 @@ def cat_shortcuts_liner(filename): # color only `` strings
             
             shortcut = line[index_of_first_md_char:index_of_second_md_char+1].strip()
             beginning_of_line = line[0:index_of_first_md_char].strip()
-            ending_of_line = line[index_of_second_md_char+1:-1].strip()
+            ending_of_line = line[index_of_second_md_char+1:].strip()
 
             final_output += build_colored_output(beginning_of_line, shortcut, ending_of_line) + '\n'
             
@@ -186,10 +186,6 @@ if args.read:
     except Exception as e:
         print(e)
         sys.exit()
-
-
-
-
 
 # TBA:
 # Remove stars from displayed lines
