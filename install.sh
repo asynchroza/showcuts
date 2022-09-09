@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ "$1" == "--zsh" ]; then
+if [ "$(basename $SHELL)" == "zsh" ]; then
     RCFILE=.zshrc
 else
     RCFILE=.bashrc
