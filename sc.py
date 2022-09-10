@@ -7,7 +7,6 @@ import os, sys, subprocess
 import textwrap
 
 parser = argparse.ArgumentParser()
-
                         
 class bcolors:          # example color gamma 
     YELLOW_IN = '\033[33m'
@@ -152,7 +151,8 @@ if args.path:
         print('The specified path does not exist')
         sys.exit()
     else:
-        command = 'echo \"export SHORTCUTS_DIR_PATH=\'{}\'\n$(cat $HOME/.{})\" > $HOME/.{}'.format(args.path, SHELL_PROFILE, SHELL_PROFILE) # :))))))
+        path = os.path.abspath(args.path)
+        command = 'echo \"export SHORTCUTS_DIR_PATH=\'{}\'\n$(cat $HOME/.{})\" > $HOME/.{}'.format(path, SHELL_PROFILE, SHELL_PROFILE) # :))))))
         if os.system(command) != 0:
             sys.exit()
 
