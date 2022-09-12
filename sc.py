@@ -165,7 +165,11 @@ def sandboxed_liner_call(args):
     try:
         cat_shortcuts_liner(args)
     except Exception as e:
-        print(e)
+        try:
+            print(e.args[1])
+        except:
+            print(e)
+
         sys.exit(1)
 
 # TERMINAL SHORTCUTS
