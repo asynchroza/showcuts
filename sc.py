@@ -25,7 +25,7 @@ COLOR=bcolors.YELLOW_IN # change color of backticks output
 
 MAX_CAPACITY_STRING = 40 # space between shortcut and command
 SPACE_BEFORE_HEADER = 18 # space before ## header
-WRAP_LIMIT = 30
+WRAP_LIMIT = MAX_CAPACITY_STRING + 5
 
 def check_correct_file(filename):
     if '.' in filename:
@@ -65,10 +65,20 @@ def build_colored_output(start, middle, end):
 
         wrap_follower = WRAP_LIMIT
         initial_end_size = len(end)
+            
+        # stores the end of the first line of the shortcut
+        first_line_end = end[0:wrap_follower] + '\n'
+        
+        # stores the following part of the wrapped text
+        following_end = ''
 
         while wrap_follower < initial_end_size:
-            end = end[0:wrap_follower] + '\n' + len(middle) * ' ' + end[wrap_follower:]
+
+            following_end += ' ' * (len(middle) + calc_mid_section - 1) + end[wrap_follower:wrap_follower+WRAP_LIMIT] + '\n'
             wrap_follower += WRAP_LIMIT
+
+        
+        return(start + " " + COLOR + middle.replace('`', '') + bcolors.CEND + ' ' * calc_mid_section + first_line_end + following_end)
 
     return(start + " " + COLOR + middle.replace('`', '') + bcolors.CEND + ' ' * calc_mid_section + end)
 
