@@ -1,6 +1,6 @@
 ## Shortcuts or ShowCuts 😁: CLI tool for displaying shortcuts
 
-![Example](https://github.com/asynchroza/showcuts/assets/104720011/d8c12413-5bf6-4b75-8dfe-e99a5ba5ac82)
+<img src="https://github.com/asynchroza/showcuts/assets/104720011/e4228f2f-e3e4-4e47-8476-d4bc1192faf7" width="700"/>
 
 ---
 Installation:
