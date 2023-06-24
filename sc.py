@@ -16,7 +16,10 @@ class bcolors:          # example color gamma
     CYAN_IN = '\033[96m'
     CEND = '\033[0m'
 
-SHELL_PROFILE='zshrc'   # set default shell rc file
+SHELL_PROFILE='bashrc'  # set default shell rc file
+
+if os.path.basename(os.environ['SHELL']) == 'zsh':
+    SHELL_PROFILE='zshrc'
 
 TERMINAL='terminal.md'  # shortcut 
 PYCHARM='pycharm.md'    # shortcut 

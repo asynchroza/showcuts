@@ -8,9 +8,8 @@ Installation:
 ./install.sh
 ```
 ---
-Setup in `sc.py`:
+Optional setup in `sc.py`:
 ```python
-SHELL_PROFILE=`zshrc` # or `bashrc` if you are using bash
 COLOR=bcolors.YELLOW_IN  # choose a color from the bcolors class or set a custom one
 MAX_CAPACITY_STRING = 40  # space between shortcut and command
 SPACE_BEFORE_HEADER = 18  # space before # tags
